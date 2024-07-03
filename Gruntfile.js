@@ -3,25 +3,25 @@ module.exports = function (grunt) {
     pkg: grunt.file.readJSON("package.json"),
     less: {
         development: {
-            files: {
-                'dev/styles/main.css': "src/styles/main.less"    // Arquivo final x Arquivo fonte
-            }
+        files: {
+          "dev/styles/main.css": "src/styles/main.less", // Arquivo final x Arquivo fonte
+        },
         },
         production: {
-            options: {
-                compress: true,
-            },
-            files: {
-                'dist/styles/main.min.css': "src/styles/main.less"    
-            }
-        }
+        options: {
+            compress: true,
+        },
+        files: {
+            "dist/styles/main.min.css": "src/styles/main.less",
+        },
+        },
     },
     watch: {
         less: {
-            files: ["src/styles/**/*.less"],   // ** qualquer pasta    &   * qualquer arquivo
-            tasks: ["less:development"]
-        }
-    }
+        files: ["src/styles/**/*.less"], // ** qualquer pasta    &   * qualquer arquivo
+        tasks: ["less:development"],
+        },
+    },
     });
     grunt.loadNpmTasks("grunt-contrib-less");
     grunt.loadNpmTasks("grunt-contrib-watch");
