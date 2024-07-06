@@ -49,12 +49,16 @@ module.exports = function (grunt) {
                 }
             ]
         },
-        dist: { // com o html minificado, faz o replace da string e manda para pasta dist
+        dist: { // com os arquivos minificados, faz o replace da string e manda para pasta dist
             options: {
                 patterns: [
                     {
                         match: 'ENDERECO_DO_CSS',
                         replacement: './styles/main.min.css'
+                    },
+                    {
+                        match: 'ENDERECO_DO_JS',
+                        replacement: './scripts/main.min.js'
                     }
                 ]
             },
@@ -79,7 +83,14 @@ module.exports = function (grunt) {
             }
         }
     },
-    clean: ['prebuild']
+    clean: ['prebuild'],
+    uglify: {
+        target: {
+            files: {
+                'dist/scripts/main.min.js' : 'src/scripts/main.js'
+            }
+        }
+    }
     });
 
 //              Plugins
@@ -88,8 +99,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-replace");
     grunt.loadNpmTasks("grunt-contrib-htmlmin");
     grunt.loadNpmTasks("grunt-contrib-clean");
+    grunt.loadNpmTasks("grunt-contrib-uglify");
 
 //  npm run grunt(default) e npm run build
     grunt.registerTask("default", ["watch"]);
-    grunt.registerTask("build", ["less:production", "htmlmin:dist", "replace:dist", "clean"]);
+    grunt.registerTask("build", ["less:production", "htmlmin:dist", "replace:dist", "clean", "uglify"]);
 };
